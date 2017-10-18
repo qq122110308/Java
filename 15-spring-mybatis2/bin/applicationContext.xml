@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd"> <!-- bean definitions here -->
+
+
+		
+		
+		 <!-- 注册数据源 :DBCP -->
+		 <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="${jdbc.driver}" />
+			<property name="url" value="${jdbc.url}" />
+			<property name="username" value="${jdbc.user}" />
+			<property name="password" value="${jdbc.password}" />
+		</bean>
+
+		 
+		<bean id="mySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="configLocation" value="classpath:mybatis.xml" />
+		</bean> 
+		  
+		<!-- 生成dao代理对象
+			 当前配置会为指定的基本包中所有的接口生成代理对象
+		 -->
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory" />
+			<property name="basePackage" value="com.ry.dao.IStudentDao" />
+		</bean>
+		
+		<!-- 注册service -->
+		<bean id="studentService" class="com.ry.serviceImpl.StudentServiceImpl" >
+			<!-- 
+			奇怪的现象
+			这里的Dao的注入需要使用ref属性，
+			若dao的接口名的前两个首字母是大写，且其值为接口的简单类名
+			若dao的接口名前首字母大写，第二个字母小写，则这里的值为简单类名，但首字母要小写
+			 -->
+			<property name="dao"  ref="IStudent" />
+		</bean>
+</beans>

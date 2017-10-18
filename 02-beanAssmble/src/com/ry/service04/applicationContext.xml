@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<!-- 注册service
+			someServiceImpl myService =new someServiceImpl()
+		 -->    
+		<!-- <bean id="myService"  class="com.ry.service01.SomeServiceImpl" />
+		 -->
+		 
+		
+		 
+		 <!-- 静态工程 bean -->
+		 <!-- 注册service -->
+		 <!--scope="prototype" 原型模式，其对象的创建时机 不是在spring容器初始化时创建，而是在代码真正访问时创建 
+		 	 scope="singleton"	单例模式 （默认的），其对象创建时机是在spring容器初始化时创建，是默认值 
+		  -->
+		 <bean  id="myService"  scope="prototype"  class="com.ry.service04.serviceFactory"   factory-method="getSomeService" />
+		 
+</beans>

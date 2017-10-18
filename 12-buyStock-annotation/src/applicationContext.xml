@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+		<!--IOC  -->
+		 
+		<!-- 注册属性文件  方式二--> 
+	   <context:property-placeholder location="classpath:jdbc.properties"/>
+		
+	
+		 <!-- 注册数据源 :DBCP -->
+		 <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="${jdbc.driver}" />
+			<property name="url" value="${jdbc.url}" />
+			<property name="username" value="${jdbc.user}" />
+			<property name="password" value="${jdbc.password}" />
+		</bean>
+		 
+		
+	
+		<!-- 注册dao -->
+		<bean id="accountDao" class="com.ry.daoImpl.AccountDaoImpl">
+		<!-- 这里将数据源注入给模板对象 具体请看源码（daoimplextends 的那个类） -->
+			<property name="dataSource" ref="myDataSource"></property>
+		</bean>
+		
+		<bean id="stockDao" class="com.ry.daoImpl.StockDaoImpl">
+			<!-- 这里将数据源注入给模板对象 具体请看源码（daoimplextends 的那个类） -->
+			<property name="dataSource" ref="myDataSource"></property>
+		</bean>
+		
+		<!-- 注册service -->
+		<bean id="buyStockService" class="com.ry.serviceImpl.BuyStockServiceImpl" >
+			<property name="adao"  ref="accountDao" />
+			<property name="sdao" ref="stockDao"></property>
+		</bean>
+		
+		
+		
+		<!-- ============== AOP =================== -->
+		<!-- 事物管理器的注册 -->
+		<bean id="myTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="myDataSource" />
+		</bean>
+		
+		<!-- 注册事物注解驱动 -->
+		<tx:annotation-driven  transaction-manager="transactionManager"  />
+		
+		
+</beans>

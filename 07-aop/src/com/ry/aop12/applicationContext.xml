@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+		
+		
+		<!-- 当前代码存在的问题  多个bean 如何处理呢-->
+		
+		<!-- 方法匹配名称切入点 顾问-->
+		
+		<!-- 注册目标对象 -->
+		<bean id="someService" class="com.ry.aop12.someServiceImpl" />
+		<bean id="someService2" class="com.ry.aop12.someServiceImpl" />
+		
+		<!-- 注册切面通知 -->
+		<bean id="myAdvice" class="com.ry.aop12.MyAfterReturningAdvice" />
+		
+		<!-- 注册切面 顾问 -->
+		<bean id="myAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+			<property name="advice" ref="myAdvice"></property>
+			<!-- 指定切入点 -->
+			<!-- 还有一个  mappedNames    针对 多个方法 ， value 可以使用通配符-->
+			<property name="mappedName"  value="doFirst"></property>
+		</bean>
+		
+		<!-- 注册切面 顾问 -->
+		<bean id="myAdvisor2" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+			<property name="advice" ref="myAdvice"></property>
+			<!-- 指定切入点 -->
+			<!-- 还有一个  mappedNames    针对 多个方法 ， value 可以使用通配符-->
+			<property name="mappedNames"  value="doSecond"></property>
+		</bean>
+		
+		
+		
+		<!-- 注册自动代理生成器 -->
+		<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"></bean>
+		
+		<!-- DefaultAdvisorAutoProxyCreator的三个问题
+			这会使配置文件变得臃肿，不便于管理
+			1、不能选择目标对象
+			2、不能选择切面类型，切面只能是advisor
+			3、不能选择advisor ，所以advisor均将被作为切面织入到目标方法
+		 -->
+			
+</beans>

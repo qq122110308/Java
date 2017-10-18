@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<!-- 注册school -->
+		<bean id="mySchool" class="com.ry.DI08.School">
+			<property name="name"  value="清华大学"></property>
+		</bean>
+		
+		<!-- 注册school -->
+		<!-- <bean id="myPrimarySchool" class="com.ry.DI08.primarySchool">
+			<property name="address"  value="海淀区"></property>
+		</bean>
+ -->
+
+
+		<!-- 注册student -->
+		<!-- autowire="byType"  会从容器中查找与实体类的域属性 具有is-a关系 的bean，并将该Bean对象自动注入给该域属性 -->
+		<bean id="myStudent" class="com.ry.DI08.Student" autowire="byType"  >
+			<property name="name"  value="阮洋"></property>
+			<property name="age" value="23"></property>
+			
+		</bean>
+		
+		
+		
+		
+</beans>

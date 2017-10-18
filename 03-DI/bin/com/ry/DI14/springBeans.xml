@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<!-- 异类类抽象Bean -->
+
+		<bean id="baseStudent"  class="com.ry.DI14.Student"  abstract="true"  >
+			
+			<property name="school" value="清华大学"></property>
+			<property name="department" value="计算机系"></property>
+		</bean>
+
+		
+		
+		<bean id="myTeacher"  class="com.ry.DI14.Teacher"  parent="baseStudent" >
+			<property name="name"  value="阮洋"></property>
+			<property name="workAge" value="23"></property>
+			
+		</bean>
+		
+		
+		
+		
+		
+		
+</beans>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		<!-- 正则表达式方法切入点 顾问-->
+		
+		<!-- 注册目标对象 -->
+		<bean id="someService" class="com.ry.aop10.someServiceImpl" />
+		
+		<!-- 注册切面通知 -->
+		<bean id="myAdvice" class="com.ry.aop10.MyAfterReturningAdvice" />
+		
+		<!-- 注册切面 顾问 -->
+		<bean id="myAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+			<property name="advice" ref="myAdvice"></property>
+			<!-- 这里正则表达式匹配的对象时全限定性方法名-->
+			<property name="pattern" value=".*doFirst"></property>	
+		</bean>
+		
+		<bean id="serviceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+			<!-- <property name="targetName" value="someService"></property> -->
+			<!-- 指定目标对象 -->
+			<property name="target" ref="someService" />
+			<!-- 指定切面 -->
+			<property name="interceptorNames" value="myAdvisor" />
+			
+			
+			
+		</bean>
+			
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	
+		<!--命名空间注入加了这个的 ：xmlns:p="http://www.springframework.org/schema/p"  -->
+	
+		<!-- 注册student -->
+		<bean id="myStudent" class="com.ry.DI03.Student"   p:name="阮洋" p:age="23"   p:school-ref="mySchool"  />
+			
+		
+		<!-- 注册school -->
+		<bean id="mySchool" class="com.ry.DI03.School"  p:name="北京大学"  />
+		
+		
+		
+</beans>

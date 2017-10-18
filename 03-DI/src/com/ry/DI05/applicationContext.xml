@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+		
+		
+		<!-- 注册school -->
+		<bean id="mySchool" class="com.ry.DI05.School">
+			<property name="name"  value="清华大学"></property>
+		</bean>
+		
+		<bean id="mySchool2" class="com.ry.DI05.School">
+			<property name="name"  value="北京大学"></property>
+		</bean>
+		
+		
+		<bean id="mySome"  class="com.ry.DI05.Some">
+			<property name="myList">
+				<list>
+					<value>大兴</value>
+					<value>仪征</value>
+				</list>
+			</property>
+			
+			
+			<property name="mySet">
+				<set>
+					<value>打住企业</value>
+					<value>10号楼</value>
+				</set>
+			</property>
+			
+			
+			<property name="myMap">
+				<map>
+					<entry key="mobile" value="13545152390" />
+					<entry key="qq" value="122110308" />
+				</map>
+			</property>
+			
+			
+			<property name="myPros">
+				<props>
+					<prop key="education" >大学</prop>
+					<prop key="gender" >性别</prop>
+				</props>
+			</property>
+		</bean>
+		
+</beans>
